@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.net.Socket" %>
+<%@ page import="java.io.ObjectOutputStream" %>
+<%@ page import="java.io.ObjectInputStream" %>
+<%@ page import="java.net.UnknownHostException" %>
+<%@ page import="java.io.IOException" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +37,29 @@
         <li><a href="Hexagon.jsp">Hexagon</a></li>
     </ol>
     <br>
+	<%
+		String SERVER_HOST = "ec2-54-87-216-48.compute-1.amazonaws.com";
+		int SERVER_PORT = 10001;
+		Socket cskt;
+		try {
+			cskt = new Socket(SERVER_HOST, SERVER_PORT);
+			ObjectOutputStream oos = new ObjectOutputStream(cskt.getOutputStream());
+			ObjectInputStream ois = new ObjectInputStream(cskt.getInputStream());
+
+			oos.writeObject("get quote");
+			String[] reply = (String[])ois.readObject();
+			out.println(reply[0] + " -" + reply[1]);
+			oos.close();
+			ois.close();
+			cskt.close();
+		} catch (UnknownHostException e) {
+			out.println(e);
+		} catch (IOException e) {
+			out.println(e);
+		} catch (ClassNotFoundException e) {
+			out.println(e);
+		}
+	%>
 	<br>
 	<br>
 	<center>
