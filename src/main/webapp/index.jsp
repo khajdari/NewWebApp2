@@ -37,6 +37,8 @@
         <li><a href="Hexagon.jsp">Hexagon</a></li>
     </ol>
     <br>
+	<center>
+	<font size="2" color="black">
 	<%
 		String SERVER_HOST = "ec2-54-87-216-48.compute-1.amazonaws.com";
 		int SERVER_PORT = 10001;
@@ -60,6 +62,8 @@
 			out.println(e);
 		}
 	%>
+	</font>
+	</center>
 	<br>
 	<br>
 	<center>
